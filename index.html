@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cookie Planet Gallery</title>
+    <style>
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1rem;
+            padding: 1rem;
+        }
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .gallery-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .caption {
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="gallery" id="gallery"></div>
+    <script>
+        fetch('https://your-github-username.github.io/cookie-planet-gallery/data.json')
+            .then(response => response.json())
+            .then(data => {
+                data.images.forEach(img => {
+                    const div = document.createElement('div');
+                    div.className = 'gallery-item';
+                    div.innerHTML = `
+                        <img src="${img.url}" alt="Gallery image #${img.number}">
+                        <div class="caption">Image #${img.number}</div>
+                    `;
+                    document.getElementById('gallery').appendChild(div);
+                });
+            });
+    </script>
+</body>
+</html>
